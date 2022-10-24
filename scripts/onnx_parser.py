@@ -1,8 +1,9 @@
 import onnx
 
-mnist_model = onnx.load("../models/mnist/onnx/mnist-8.onnx")
-mobilenet_model = onnx.load("../models/mobilenet/mobilenetv2-7.onnx")
-resnet_model = onnx.load("../models/resnet/resnet18-v2-7.onnx")
+model_path = "../eval/models/"
+mnist_model = onnx.load(model_path + "mnist-8.onnx")
+mobilenet_model = onnx.load(model_path + "mobilenetv2-7.onnx")
+resnet_model = onnx.load(model_path + "resnet18-v2-7.onnx")
 
 def get_num_op(model):
     return len(model.graph.node)
