@@ -1,3 +1,9 @@
+## TODO
+
+- [ ] compile with microTVM
+- [ ] compile glow/tvm artifacts into one binary before decompilation.
+- [ ] decompile with DnD.
+- [ ] Compare decompiled onnx and original onnx.
 
 ## From MLPerfTiny
 
@@ -44,18 +50,33 @@ models/vision/classification/mobilenet/model/mobilenetv2-12-int8.onnx
 
 1. Compare DnD-decompiled model vs original model inference
 
+## How to AOT cross-compile with {Glow, TVM}
+
+Glow provides a compiler binary called `model-compiler`, which is located in 
+`/path/to/build/bin/model-compiler`.
+
+Glow AOT compiler will provide 4 artifacts out of compilation process. For
+example, given a model named `<network-name>.onnx`, it emits `<network-name>.o`
+, `<network-name>.h`, `<network-name>.weights.bin` and
+`<network-name>.weights.txt`. In its header file, the function
+named `<network-name>()` is defined, so user must link a `*.o` file and call
+it. The detailed guideline is described in
+[here](https://github.com/pytorch/glow/blob/master/docs/AOT.md).
+
+
+
 ```
 # (optional) conver tflite to onnx
 python -m tf2onnx.convert --opset 13 --tflite /path/something/resnetv1.tflite --output resnetv1.onnx
 
 # extract pbtxt & dot files from onnx files
 cd eval
-./extinfo.sh
+./extinfo.sh compile
 
 # compile with glow and store at eval/binaries
+model-compiler --backend=CPU --target=arm --mcpu=cortex-m7 --model=<network-model> -emit-bundle=/path/out/directory
 
 # compile with tvm and store at eval/binaries
 
 # decompile eval/binaries/* into onnx using dnd
-
 ```

@@ -59,7 +59,9 @@ RUN git clone --recursive https://github.com/pytorch/glow /app/glow \
 RUN cd /app/glow && export CC=clang && export CXX=clang++ && cmake -G Ninja -S . -B build && cd build && ninja all
 
 # RUN git clone https://github.com/FailFish/DnD /app/dnd
-RUN apt-get install git-lfs
+# RUN apt-get install git-lfs
+
+ENV PATH="${PATH}:/app/glow/build/bin"
 
 # ADD . /app/dnd
 
