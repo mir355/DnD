@@ -30,6 +30,7 @@ RUN /usr/bin/python3 -m pip install angr
 RUN /usr/bin/python3 -m pip install archinfo
 RUN /usr/bin/python3 -m pip install claripy
 RUN /usr/bin/python3 -m pip install traitlets
+RUN /usr/bin/python3 -m pip install IPython
 
 # cmake stable latest
 # RUN git clone https://github.com/Kitware/CMake.git --branch=v3.24.0 /app/cmake

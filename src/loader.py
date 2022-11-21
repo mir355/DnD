@@ -276,16 +276,16 @@ def func_prologue_analysis(proj):
     proj.func_prologue_summary = {}
     proj.func_prologue_end_addr = {}
     for func_addr in proj.analysis_funcs:
-        # print(hex(func_addr))
+        print(hex(func_addr))
         try:
             proj.func_prologue_end_addr[func_addr] = proj.outer_loops[
                 func_addr][0][0].entry.addr
         except:
             print(hex(func_addr), " not found")
             pass
-        # proj.func_prologue_end_addr[func_addr] = get_last_inst_addr_in_blk(
-        #    proj.funcs[func_addr], next(proj.funcs[func_addr].blocks))
-        # prepare_prologue(proj, func_addr)
+        proj.func_prologue_end_addr[func_addr] = get_last_inst_addr_in_blk(
+           proj.funcs[func_addr], next(proj.funcs[func_addr].blocks))
+        prepare_prologue(proj, func_addr)
 
 
 def prologue_mem_write_bp(state):
