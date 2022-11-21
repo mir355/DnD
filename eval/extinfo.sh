@@ -37,6 +37,7 @@ compile ()
         --backend=CPU \
         --model=$file \
         -emit-bundle=$BINDIR/$base/$1 \
+        -bundle-api=static \
         --target=$1 \
         --mcpu=$2 \
         $undefined_symbol

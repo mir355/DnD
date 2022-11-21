@@ -1,9 +1,9 @@
-## TODO
+## General Issues
 
-- [ ] compile with microTVM
-- [ ] compile glow/tvm artifacts into one binary before decompilation.
-- [ ] decompile with DnD.
-- [ ] Compare decompiled onnx and original onnx.
+- There is no entry point nor guideline
+- models are not provided
+- compilers are not provided
+- no "default/standard" setup in AOT compilation.
 
 ## From MLPerfTiny
 
@@ -78,5 +78,22 @@ model-compiler --backend=CPU --target=arm --mcpu=cortex-m7 --model=<network-mode
 
 # compile with tvm and store at eval/binaries
 
+# compile the artifcats with the main binary
+python3 test.py
+
 # decompile eval/binaries/* into onnx using dnd
 ```
+
+## TODO
+
+- [x] compile glow/tvm artifacts into one binary before decompilation.
+- [x] compiling into x64 bundle
+- [ ] compiling into aarch64 bundle
+
+- [ ] load the x64 bundle
+  - error emitting at a block with no instruction.
+
+- [ ] decompile with DnD.
+- [ ] Compare decompiled onnx and original onnx.
+
+

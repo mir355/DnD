@@ -45,6 +45,8 @@ def load(bin_path, dispatch_addr=None, arch=None):
     print("Building CFG")
     proj.cfg = proj.analyses.CFGFast(normalize=True)
     proj.funcs = proj.cfg.kb.functions
+    print("This is the graph:", proj.cfg.graph)
+    print("It has %d nodes and %d edges" % (len(proj.cfg.graph.nodes()), len(proj.cfg.graph.edges())))
 
     # map from addr to block
     proj.block_map = {}
@@ -78,6 +80,7 @@ def load(bin_path, dispatch_addr=None, arch=None):
     proj.loops_hierarchy = loop_finder.loops_hierarchy
 
     # collect debug mapping
+    print("collect debug mapping")
     collect_dbg_data(proj, loop_finder)
 
     # an operator function can be called multiple time, with
@@ -149,6 +152,12 @@ def collect_dbg_data(proj, loop_finder):
             continue
         func = proj.funcs[f_addr]
         for block in func.blocks:
+            if len(block.vex.statements) == 0:
+                print(func.name)
+                block.pp()
+                print(block.instructions)
+                print(type(block))
+                continue
             inst_addrs = block.instruction_addrs
             inst_idx = -1
 

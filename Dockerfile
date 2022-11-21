@@ -56,7 +56,8 @@ RUN cd /app/fmt && cmake -S . -B build && cd build && make && make install
 RUN git clone --recursive https://github.com/pytorch/glow /app/glow \
   && cd /app/glow/thirdparty/folly \
   && git pull origin main
-RUN cd /app/glow && export CC=clang && export CXX=clang++ && cmake -G Ninja -S . -B build && cd build && ninja all
+RUN cd /app/glow && export CC=clang && export CXX=clang++ && cmake -G Ninja -S . -B build -DCMAKE_BUILD_TYPE=Debug -DGLOW_WITH_BUNDLES=ON \
+  && cd build && ninja all
 
 # RUN git clone https://github.com/FailFish/DnD /app/dnd
 # RUN apt-get install git-lfs
